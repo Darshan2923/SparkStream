@@ -35,4 +35,4 @@ app.get("/api/chat/:id", (req, res) => {
 const PORT = process.env.PORT
 // https://stackoverflow.com/questions/9164915/node-js-eacces-error-when-listening-on-most-ports
 
-app.listen(PORT, console.log(`Server is running`));
+app.listen(5000, console.log(`Server is running`));
