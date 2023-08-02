@@ -32,7 +32,7 @@ app.get("/api/chat/:id", (req, res) => {
     res.send(singleData);
 })
 
-// const PORT = process.env.PORT
+const PORT = process.env.PORT
 // https://stackoverflow.com/questions/9164915/node-js-eacces-error-when-listening-on-most-ports
 
-app.listen(5000, console.log(`Server is running`));
+app.listen(PORT, console.log(`Server is running`));
