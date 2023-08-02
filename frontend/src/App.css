@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@600&family=Oswald&family=Poppins:wght@600&family=Space+Grotesk:wght@600&display=swap');
+
+
+.App {
+    height: 100vh !important;
+    display: flex;
+    background: url('./best-bg.jpg');
+    background-size: contain;
+    background-position: center;
+}
