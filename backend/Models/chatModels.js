@@ -13,7 +13,7 @@ const { Schema } = mongoose;
 
 // This line of code creates a new chat model using the "Schema" we just mentioned.
 // It tells the book what information each chat should have.
-const chatModel = new mongoose.Schema({
+const chatModel = new Schema({
     // This line says each chat should have a "chatName" which is a text (String) and it should be trimmed (no extra spaces).
     chatName: { type: String, trim: true },
 
@@ -24,7 +24,7 @@ const chatModel = new mongoose.Schema({
     // This line says each chat should have a list of "users".
     // Each "user" is a special person we know, and they have a unique "ID" that helps us recognize them.
     users: [{
-        type: Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId, //Reference to a particular user ka id
         ref: "User", // This tells the book that each user is related to the "User" model we have in the magical book.
     }],
 
