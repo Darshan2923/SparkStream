@@ -10,6 +10,8 @@ dotenv.config();
 connectDB();
 const app = express();
 
+app.use(express.json()); //Accept json data from forntend
+
 // Now we can use this app variable to create a server
 
 //Now we are creating an express.js API 
@@ -39,7 +41,7 @@ app.get("/api/chat/:id", (req, res) => {
 
 // Adding an endpoint for user authentication
 
-app.user('/api/user', userRoutes)
+app.use('/api/user', userRoutes)
 
 const PORT = process.env.PORT
 // https://stackoverflow.com/questions/9164915/node-js-eacces-error-when-listening-on-most-ports
