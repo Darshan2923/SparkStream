@@ -1,12 +1,59 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react';
+import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from '@chakra-ui/react';
+import axios from 'axios';
 import React, { useState } from 'react'
 
 function Login() {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const submitHandler = () => {
+    const toast = useToast();
+
+    const submitHandler = async () => {
+        setLoading(true);
+        if (!email || !pass) {
+            toast({
+                title: "Please Select an Image!!!",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
+            setLoading(false);
+            return;
+        }
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json"
+                }
+            };
+
+            const { data } = await axios.post('/api/user/login', { email, pass }, config)
+            toast({
+                title: "Login Successful!!!",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            })
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            setLoading(false);
+            //After successful registration,user will be pushed to chats page
+            navigate('/chats');
+        } catch (e) {
+            toast({
+                title: "An error occured!!!",
+                description: e.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            })
+            setLoading(false);
+            return;
+        }
 
     };
 
