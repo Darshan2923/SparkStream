@@ -14,7 +14,7 @@ function Home() {
                     fontFamily="Space Grotesk"
                     color="white">SparkSense</Text>
             </Box>
-            <Box bg='white' w='100%' p={4} borderRadius='lg' color='black' borderWidth='1px'>
+            <Box bg='white' w='100%' p={4} borderRadius='lg' color='black' borderWidth='1px' >
                 <Tabs variant='soft-rounded' colorScheme='blue'>
                     <TabList mb='1em'>
                         <Tab width='50%'>SignUp</Tab>

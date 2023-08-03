@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const chats = require('./data/data');
 const connectDB = require("./config/db");
 const colors = require("colors");
+const userRoutes = require('./routes/userRoutes')
 
 //Now create instance of this express variable
 dotenv.config();
@@ -34,6 +35,11 @@ app.get("/api/chat/:id", (req, res) => {
     })
     res.send(singleData);
 })
+
+
+// Adding an endpoint for user authentication
+
+app.user('/api/user', userRoutes)
 
 const PORT = process.env.PORT
 // https://stackoverflow.com/questions/9164915/node-js-eacces-error-when-listening-on-most-ports
