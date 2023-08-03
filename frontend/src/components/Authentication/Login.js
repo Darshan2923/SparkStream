@@ -6,7 +6,9 @@ function Login() {
     const [pass, setPass] = useState('');
     const [show, setShow] = useState(false);
 
-    const submitHandler = () => { };
+    const submitHandler = () => {
+
+    };
 
     return (
         <div className='login-container'>
