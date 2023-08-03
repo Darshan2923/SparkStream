@@ -1,6 +1,8 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import { useToast } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 function SignUp() {
     const [name, setName] = useState('');
@@ -12,6 +14,7 @@ function SignUp() {
     const [loading, setLoading] = useState(false);
 
     const toast = useToast();
+    const navigate = useNavigate();
     const postDetails = (pic) => {
         setLoading(true);
         if (pic === undefined) {
@@ -57,7 +60,61 @@ function SignUp() {
         }
     };
 
-    const submitHandler = () => { };
+    const submitHandler = async () => {
+        setLoading(true);
+        if (!name || !email || !pass || !cpass) {
+            toast({
+                title: "Please Fill all details!!!",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
+            setLoading(false);
+            return;
+        }
+        if (pass !== cpass) {
+            toast({
+                title: "Passwords does'nt match!!!",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
+            return;
+        }
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            };
+            const { data } = await axios.post('/api/user', { name, email, pass, pic }, config);
+            toast({
+                title: "Registration Successful!!!",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            })
+            localStorage.setItem("userInfo", JSON.stringify(data));
+            setLoading(false);
+            //After successful registration,user will be pushed to chats page
+            navigate('/chats');
+        } catch (e) {
+            toast({
+                title: "An error occured!!!",
+                description: e.response.data.message,
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            })
+            setLoading(false);
+            return;
+        }
+
+    };
 
     return (
         <div>
