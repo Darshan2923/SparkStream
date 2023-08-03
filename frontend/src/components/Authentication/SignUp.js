@@ -1,4 +1,5 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
 function SignUp() {
@@ -8,8 +9,53 @@ function SignUp() {
     const [show, setShow] = useState(false);
     const [cpass, setCpass] = useState('');
     const [pic, setPic] = useState();
+    const [loading, setLoading] = useState(false);
 
-    const postDetails = (pic) => { };
+    const toast = useToast();
+    const postDetails = (pic) => {
+        setLoading(true);
+        if (pic === undefined) {
+            toast({
+                title: "Please Select an Image!!!",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
+            return;
+        }
+        if (pic.type === 'image/jpeg' || pic.type === 'image/png') {
+            try {
+                const data = new FormData();
+                data.append("file", pic);
+                data.append("upload_preset", "Sparksense");
+                data.append("cloud_name", "dq7sszkls");
+                fetch("https://api.cloudinary.com/v1_1/dq7sszkls/image/upload",
+                    {
+                        method: 'post',
+                        body: data
+                    }).then((res) => res.json()).then((data) => {
+                        setPic(data.url.toString());
+                        setLoading(false);
+                        console.log(data.url.toString());
+                    })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        else {
+            toast({
+                title: "Please Select an Image!!!",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
+            setLoading(false);
+            return;
+        }
+    };
 
     const submitHandler = () => { };
 
@@ -68,7 +114,7 @@ function SignUp() {
                     />
                 </FormControl>
 
-                <Button colorScheme='blue' width='100%' style={{ marginTop: 15 }} onClick={submitHandler}>
+                <Button colorScheme='blue' width='100%' style={{ marginTop: 15 }} onClick={submitHandler} isLoading={loading}>
                     Sign Up
                 </Button>
 

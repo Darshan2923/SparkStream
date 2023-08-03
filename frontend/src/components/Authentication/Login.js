@@ -13,13 +13,13 @@ function Login() {
     return (
         <div className='login-container'>
             <VStack spacing='5px'>
-                <FormControl id='email' isRequired>
+                <FormControl id='email2' isRequired>
                     <FormLabel>Email</FormLabel>
                     <Input placeholder='Enter Your Email...'
                         onChange={(e) => setEmail(e.target.value)} />
                 </FormControl>
 
-                <FormControl id='password' isRequired>
+                <FormControl id='password2' isRequired>
                     <FormLabel>Password</FormLabel>
                     <InputGroup>
                         <Input
